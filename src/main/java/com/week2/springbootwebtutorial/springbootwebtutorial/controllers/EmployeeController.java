@@ -1,36 +1,44 @@
 package com.week2.springbootwebtutorial.springbootwebtutorial.controllers;
 
-import com.week2.springbootwebtutorial.springbootwebtutorial.dto.EmployeeDTO;
+
+import com.week2.springbootwebtutorial.springbootwebtutorial.entities.EmployeeEntity;
+import com.week2.springbootwebtutorial.springbootwebtutorial.repositories.EmployeeRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @RestController
 @RequestMapping(path ="/employees")
 public class EmployeeController {
+
+
+    private final EmployeeRepository employeeRepository;
+
+    public EmployeeController(EmployeeRepository employeeRepository) {
+        this.employeeRepository = employeeRepository;
+    }
+
     @GetMapping(path = "/getMessage")
     public String getMessage(){
         return "Yusuf Saiyad";
     }
 
     @GetMapping("/{employeeId}")
-    public EmployeeDTO getEmployeeById(@PathVariable Long employeeId){
-        return new EmployeeDTO(23, LocalDate.of( 2025 , 2,1),"yusuf@gmail.com",employeeId,true,"Yusuf");
+    public EmployeeEntity getEmployeeById(@PathVariable(name="employeeId") Long id){
+        return employeeRepository.findById(id).orElse(null);
     }
 
     @GetMapping
-    public  String getAllEmployees(@RequestParam  (required=false) Integer age,
-                                   @RequestParam   (required=false) String sortBy){
-        return "Hi Yusuf "+age+" "+sortBy;
+    public List<EmployeeEntity> getAllEmployees(@RequestParam  (required=false) Integer age,
+                                @RequestParam   (required=false) String sortBy) {
+        return employeeRepository.findAll();
     }
     @PostMapping
-    public EmployeeDTO createNewEmployee(@RequestBody EmployeeDTO employeeDTO){
-        employeeDTO.setId(10L);
-        return employeeDTO;
+    public EmployeeEntity createEmployee(@RequestBody EmployeeEntity employeeEntity){
+        return employeeRepository.save(employeeEntity);
     }
-    @PutMapping
-    public String updateEmployeeId(){
-        return "Hello From Put";
-    }
+
+
 
 }
