@@ -1,5 +1,6 @@
 package com.week2.springbootwebtutorial.springbootwebtutorial.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,12 +18,14 @@ import java.time.LocalDate;
 public class EmployeeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+
     private   Long id;
     private  String name;
     private   String email;
     private   Integer age;
     private LocalDate dateOfJoining;
-    private   Boolean isActive;
 
+    @JsonProperty("isActive")
+    private   Boolean isActive;
 
 }
