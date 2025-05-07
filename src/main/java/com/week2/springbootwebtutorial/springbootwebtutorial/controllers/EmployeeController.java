@@ -2,17 +2,13 @@ package com.week2.springbootwebtutorial.springbootwebtutorial.controllers;
 
 
 import com.week2.springbootwebtutorial.springbootwebtutorial.dto.EmployeeDTO;
-import com.week2.springbootwebtutorial.springbootwebtutorial.entities.EmployeeEntity;
-import com.week2.springbootwebtutorial.springbootwebtutorial.repositories.EmployeeRepository;
 import com.week2.springbootwebtutorial.springbootwebtutorial.services.EmployeeService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 
 @RestController
@@ -45,7 +41,7 @@ public class EmployeeController {
         return ResponseEntity.ok(employeeService.getAllEmployees());
     }
     @PostMapping
-    public ResponseEntity<EmployeeDTO> createEmployee(@RequestBody EmployeeDTO employeeDTO){
+    public ResponseEntity<EmployeeDTO> createEmployee(@RequestBody @Valid EmployeeDTO employeeDTO){
         EmployeeDTO savedEmployee = employeeService.createEmployee(employeeDTO);
          return new ResponseEntity<>(savedEmployee, HttpStatus.CREATED);
     }
