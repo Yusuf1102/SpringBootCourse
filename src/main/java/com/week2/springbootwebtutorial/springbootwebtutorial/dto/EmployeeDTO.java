@@ -1,6 +1,7 @@
 package com.week2.springbootwebtutorial.springbootwebtutorial.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.week2.springbootwebtutorial.springbootwebtutorial.annotations.EmployeeRoleValidation;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,9 +29,10 @@ public class EmployeeDTO {
   @Max(value = 80 , message = "Age cannot be greater than 80")
   @Min(value = 18 ,message = "Age cannot be less than 18")
  private   Integer age;
-
-  @NotBlank(message = "Role of the employee cannot be blank ")
-  @Pattern(regexp = "^(ADMIN|USER)$", message = "Role of Employee can be USER or ADMIN")
+//
+//  @NotBlank(message = "Role of the employee cannot be blank ")
+//  @Pattern(regexp = "^(ADMIN|USER)$", message = "Role of Employee can be USER or ADMIN")
+    @EmployeeRoleValidation
   private String role ;//ADMIN | USER
 
  private   LocalDate dateOfJoining;
